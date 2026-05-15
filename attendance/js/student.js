@@ -79,7 +79,7 @@ function suspendstudent(studentid){
     .then(() =>{
         alert("Student suspended")
     })
-    .then((error) =>{
+    .catch((error) =>{
         alert("Error while suspending")
     })
 
@@ -130,8 +130,34 @@ function activatestudent(studentid){
     .then(() =>{
         alert("Student activated")
     })
-    .then((error) =>{
+    .catch((error) =>{
         alert("Error while activating")
     })
 
-}
+}// active Students
+let lbtoTotalActiveStudents = document.getElementById("lbtoTotalActiveStudents")
+firebase.database().ref("userDetails").once("value",function(snapshot){
+    let total = 0
+    snapshot.forEach(function(childsnapshot){
+        let data = childsnapshot.val()
+        if (data.Status == "active" && data.Role == "Student")
+        total ++
+       
+   
+})
+ lbtoTotalActiveStudents.innerHTML = total
+})
+ 
+// Inactive Students
+let lbtoTotalInactiveStudents = document.getElementById("lbtoTotalInactiveStudents")
+firebase.database().ref("userDetails").once("value",function(snapshot){
+    let total = 0
+    snapshot.forEach(function(childsnapshot){
+        let data = childsnapshot.val()
+        if (data.Status == "inactive" && data.Role == "Student")
+        total ++
+       
+   
+})
+ lbtoTotalInactiveStudents.innerHTML = total
+})

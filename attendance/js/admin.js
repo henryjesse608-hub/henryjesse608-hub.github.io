@@ -135,3 +135,31 @@ function activatestudent(studentid){
     })
 
 }
+
+// Active Admins
+let lbtotalactive = document.getElementById("lbtotalactive")
+firebase.database().ref("userDetails").once("value",function(snapshot){
+    let total = 0
+    snapshot.forEach(function(childsnapshot){
+        let data = childsnapshot.val()
+        if (data.Status == "active" && data.Role == "Admin")
+        total++
+       
+   
+})
+ lbtotalactive.innerHTML = total
+
+ // Inactive Admins
+let lbtotalinactive = document.getElementById("lbtotalinactive")
+firebase.database().ref("userDetails").once("value",function(snapshot){
+    let total = 0
+    snapshot.forEach(function(childsnapshot){
+        let data = childsnapshot.val()
+        if (data.Status == "inactive" && data.Role == "Admin")
+        total++
+       
+   
+})
+ lbtotalinactive.innerHTML = total
+})
+})
